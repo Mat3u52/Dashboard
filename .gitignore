@@ -6,3 +6,5 @@ __pycache__/
 /static
 .DS_Store
 .idea
+.sqlite3
+desk/desk/db.sqlite3
