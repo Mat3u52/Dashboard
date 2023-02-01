@@ -7,4 +7,4 @@ __pycache__/
 .DS_Store
 .idea
 .sqlite3
-desk/desk/db.sqlite3
+db.sqlite3
