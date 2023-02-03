@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def guideline_list(request):
+    return render(request, 'datasheet/guideline_list.html', {})

@@ -7,6 +7,7 @@ class Guideline(models.Model):
     # CASCADE: When the referenced object is deleted, also delete the objects that have references to it.
     # when you remove a blog post for instance, you might want to delete comments as well.
     title = models.CharField(max_length=250)
+    version = models.CharField(max_length=250, default="0.0")
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     publish_date = models.DateTimeField(blank=True, null=True)
