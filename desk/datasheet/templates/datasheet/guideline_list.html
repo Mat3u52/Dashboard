@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="{% static 'css/guideline.css' %}">
   </head>
   <body>
-    <div>
+    <div class="header">
       <h1>Guideline for Automatic X-Ray Inspection.</h1>
     </div>
-    <div>
+
+    <div class="bodyHeader">
       <p>Customer requirements for X-Ray verification.</p>
 
     </div>
@@ -19,11 +20,16 @@
       List of the guidelines
     {% endcomment %}
     {% for guide in guideline %}
-    <div>
+
+    <div class="content">
       <p>published date: {{ guide.publish_date }}</p>
       <h2><a href="">{{ guide.title }}</a></h2>
       <em>{{ guide.text|linebreaksbr }}</em>
     </div>
     {% endfor %}
+
+    <div class="footer">
+
+    </div>
   </body>
 </html>
