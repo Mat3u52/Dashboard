@@ -1,7 +1,37 @@
-h1 a,h2 a{
-    color: #DE781F;
+h1 a, h2 a{
+    color: #03FBCE;
+    text-decoration: none;
 }
 body{
-    padding-left: 15px;
     font-family: 'Lato', sans-sarif;
+    background-color: #00261F;
+    color: #D6D6D6;
+}
+.header{
+    width: 100%;
+    background-color: #003229;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+.pageHeader{
+    margin-left: 20px;
+    padding-top: 20px;
+}
+.content{
+    padding-left: 50px;
+    margin-left: 30px;
+    padding-top: 30px;
+}
+.date{
+    font-size: 10pt;
+    color: #828282;
+    text-align: right;
+    padding-top: 20px;
+}
+.footer{
+    font-size: 11pt;
+    text-align: center;
+    margin-bottom: 0;
+    padding: 20px;
+    color: #828282;
 }

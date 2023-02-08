@@ -23,15 +23,10 @@
     {% endcomment %}
     <div class="contentContainer">
       <div class="content">
-      {% for guide in guideline %}
         <div class="col-md-8">
-          <h2><a href="">{{ guide.title }}</a></h2>
-          <em>{{ guide.text|linebreaksbr }}</em>
-          <div class="date">
-            <p>published date: {{ guide.publish_date }}</p>
-          </div>
+          {% block content %}
+          {% endblock %}
         </div>
-      {% endfor %}
       </div>
     </div>
 
