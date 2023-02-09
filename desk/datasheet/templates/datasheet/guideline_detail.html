@@ -1,0 +1,14 @@
+{% extends 'datasheet/base.html' %}
+
+{% block content %}
+  <div class="oneGuideline">
+    <h2>{{ one_guideline.title }}</h2>
+    <p>{{ one_guideline.text|linebreaksbr }}</p>
+
+    {% if one_guideline.publish_date %}
+    <div class="date">
+      {{ one_guideline.publish_date }}
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}
