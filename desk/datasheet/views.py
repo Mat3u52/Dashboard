@@ -3,6 +3,34 @@ import datetime
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Guideline
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.forms import ImgForm
+from django.views.generic import DetailView
+from django.views.generic import TemplateView
+
+
+class Image(TemplateView):
+    form = ImgForm
+    template_name = 'datasheet/image.html'
+
+    def guideline(self, request, *args, **kwargs):
+        form = ImgForm(request.GUIDE, request.FILES)
+        if form.is_valid():
+            obj = form.save()
+            return HttpResponseRedirect(reverse_lazy('image_display', kwargs={'pk': obj.id}))
+
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
+
+    def get(self, request, *args, **kwargs):
+        return self.guideline(request, *args, **kwargs)
+
+
+class ImageDisplay(DetailView):
+    model = Guideline
+    template_name = 'datasheet/image_display.html'
+    context_object_name = 'image'
 
 
 def guideline_list(request):
