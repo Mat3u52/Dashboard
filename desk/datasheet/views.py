@@ -5,7 +5,8 @@ from django.utils import timezone
 from .models import Guideline
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.forms import ImgForm
+from django.forms import ModelForm
+from .forms import ImgForm
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 

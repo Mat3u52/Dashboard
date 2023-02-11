@@ -3,6 +3,7 @@
 {% block content %}
   <div class="oneGuideline">
     <h2>{{ one_guideline.title }}</h2>
+    <img src="{{ guideline.image.url }}" alt="image" width="250px">
     <p>{{ one_guideline.text|linebreaksbr }}</p>
 
     {% if one_guideline.publish_date %}
