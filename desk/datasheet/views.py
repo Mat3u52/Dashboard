@@ -16,7 +16,7 @@ class Image(TemplateView):
     template_name = 'datasheet/image.html'
 
     def guideline(self, request, *args, **kwargs):
-        form = ImgForm(request.GUIDE, request.FILES)
+        form = ImgForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save()
             return HttpResponseRedirect(reverse_lazy('image_display', kwargs={'pk': obj.id}))
