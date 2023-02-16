@@ -5,7 +5,7 @@ from django.utils import timezone
 from .models import Guideline
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.forms import ModelForm
+#from django.forms import ModelForm
 from .forms import ImgForm
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
@@ -43,7 +43,14 @@ def guideline_list(request):
 
 
 def guideline_detail(request, pk):
+    current_date = datetime.date.today()
     one_guideline = get_object_or_404(Guideline, pk=pk)
-    return render(request, 'datasheet/guideline_detail.html', {'one_guideline': one_guideline})
+    return render(request, 'datasheet/guideline_detail.html', {'one_guideline': one_guideline,
+                                                               'current_date': current_date})
+
+
+def error_404_view(request, exception):
+    data = {"name": 'Guideline for AXI.'}
+    return render(request, 'datasheet/404.html', data)
 
 

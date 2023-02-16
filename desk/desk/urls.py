@@ -23,9 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('datasheet.urls')),
     path('images/', Image.as_view(), name='image'),
-    path('images/<int:pk>', ImageDisplay.as_view(), name='image_display')
+    path('images/<int:pk>', ImageDisplay.as_view(), name='image_display'),
     #path(r'^datasheet/(\d+)$', admin.site.urls),
 ]
+
+handler404 = 'datasheet.views.error_404_view'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

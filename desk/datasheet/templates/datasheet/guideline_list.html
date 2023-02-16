@@ -2,7 +2,7 @@
 {% block content %}
 {% for guide in guideline %}
   <h2><a href="{% url 'guideline_detail' pk=guide.pk %}">{{ guide.title }}</a></h2>
-  <img src="{{ guideline.image.url }}" alt="image" width="100px">
+  <img src="{{ guide.image.url }}" alt="image" width="100px">
 <!--  <img src="/media/images/axi.png" alt="image" width="100px">-->
   <em>{{ guide.text|linebreaksbr }}</em>
   <div class="date">
