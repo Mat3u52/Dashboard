@@ -2,7 +2,9 @@ from django import forms
 from .models import Guideline
 
 
-class ImgForm(forms.ModelForm):
+class GuideForm(forms.ModelForm):
+    title = forms.CharField(help_text='maximum 250 characters')
+
     class Meta:
         model = Guideline
-        fields = ['image']
+        fields = ['title', 'version', 'text', 'image',]

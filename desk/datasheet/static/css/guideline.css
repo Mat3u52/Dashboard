@@ -7,6 +7,17 @@ body{
     background-color: #00261F;
     color: #D6D6D6;
 }
+img{
+    border-radius: 10px;
+    float:left;
+    margin: 10px;
+}
+input, textarea {
+  background-color: #003229;
+  color: #FFFFFF;
+  border: 1px solid #008000;
+  border-radius: 4px;
+}
 .header{
     width: 100%;
     background-color: #003229;
@@ -23,15 +34,31 @@ body{
     padding-top: 30px;
 }
 .date{
+    clear: both;
     font-size: 10pt;
     color: #828282;
     text-align: right;
     padding-top: 20px;
 }
+.oneGuideline{
+    min-height: 350px;
+}
+.contentContainer{
+    width: 100%;
+    padding: 20px 20px 20px 40px;
+    float:left;
+}
 .footer{
+    clear: both;
+    vertical-align: bottom;
     font-size: 11pt;
     text-align: center;
     margin-bottom: 0;
     padding: 20px;
+    color: #828282;
+    width: 100%;
+}
+.label{
+    float: right;
     color: #828282;
 }

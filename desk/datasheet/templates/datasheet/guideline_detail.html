@@ -11,5 +11,10 @@
       {{ one_guideline.publish_date }}
     </div>
     {% endif %}
+    {% if user.is_authenticated %}
+    <a href="{% url 'guideline_edit' pk=one_guideline.pk %}">
+      <button type="submit" class="btn btn-outline-success">Edit</button>
+    </a>
+    {% endif %}
   </div>
 {% endblock %}

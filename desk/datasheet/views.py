@@ -1,22 +1,27 @@
 import datetime
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Guideline
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-#from django.forms import ModelForm
-from .forms import ImgForm
+# from django.forms import ModelForm
+from .forms import GuideForm
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import GuidelineSerializer
+
 
 class Image(TemplateView):
-    form = ImgForm
+    form = GuideForm
     template_name = 'datasheet/image.html'
 
     def guideline(self, request, *args, **kwargs):
-        form = ImgForm(request.POST, request.FILES)
+        form = GuideForm(request.POST, request.FILES)
         if form.is_valid():
             obj = form.save()
             return HttpResponseRedirect(reverse_lazy('image_display', kwargs={'pk': obj.id}))
@@ -52,5 +57,79 @@ def guideline_detail(request, pk):
 def error_404_view(request, exception):
     data = {"name": 'Guideline for AXI.'}
     return render(request, 'datasheet/404.html', data)
+
+
+def error_500_view(request, *args, **argv):
+    return render(request, 'datasheet/500.html', status=500)
+
+
+def guide_new(request):
+    current_date = datetime.date.today()
+    if request.method == "POST":
+        form = GuideForm(request.POST, request.FILES)
+        if form.is_valid():
+            guide = form.save(commit=False)
+            guide.author = request.user
+            guide.publish_date = timezone.now()
+            guide.save()
+            return redirect('guideline_detail', pk=guide.pk)
+    else:
+        form = GuideForm()
+
+    return render(request, 'datasheet/guideline_edit.html', {'form': form,
+                                                             'current_date': current_date})
+
+
+def guideline_edit(request, pk):
+    current_date = datetime.date.today()
+    guide = get_object_or_404(Guideline, pk=pk)
+    if request.method == "POST":
+        form = GuideForm(request.POST, request.FILES, instance=guide)
+        if form.is_valid():
+            guide = form.save(commit=False)
+            guide.author = request.user
+            guide.publish_date = timezone.now()
+            guide.save()
+            return redirect('guideline_detail', pk=guide.pk)
+    else:
+        form = GuideForm(instance=guide)
+
+    return render(request, 'datasheet/guideline_edit.html', {'form': form,
+                                                             'current_date': current_date})
+
+
+class GuidelineViews(APIView):
+
+    def post(self, request):
+        serializer = GuidelineSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, pk=None):
+        if pk:
+            item = Guideline.objects.get(id=pk)
+            serializer = GuidelineSerializer(item)
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        items = Guideline.objects.all()
+        serializer = GuidelineSerializer(items, many=True)
+        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+    def patch(self, request, pk=None):
+        item = Guideline.objects.get(id=pk)
+        serializer = GuidelineSerializer(item, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "data": serializer.errors})
+
+    def delete(self, request, pk=None):
+        item = get_object_or_404(Guideline, id=pk)
+        item.delete()
+        return Response({"status": "success", "data": "Item Deleted"})
 
 
