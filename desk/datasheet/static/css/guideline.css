@@ -48,6 +48,18 @@ input, textarea {
     padding: 20px 20px 20px 40px;
     float:left;
 }
+.pagination{
+    clear: both;
+}
+.step-links a{
+    color: #03FBCE;
+    text-decoration: none;
+    font-size: 14pt;
+}
+.current{
+    color: #D6D6D6;
+    font-size: 14pt;
+}
 .footer{
     clear: both;
     vertical-align: bottom;

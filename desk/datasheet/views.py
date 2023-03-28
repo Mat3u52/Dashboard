@@ -5,15 +5,15 @@ from django.utils import timezone
 from .models import Guideline
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-# from django.forms import ModelForm
 from .forms import GuideForm
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
-
+from django.views.generic import ListView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import GuidelineSerializer
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class Image(TemplateView):
@@ -40,18 +40,29 @@ class ImageDisplay(DetailView):
 
 
 def guideline_list(request):
-    current_date = datetime.date.today()
-    guideline = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('publish_date')
+    # object_list = Guideline.publish_date.all()
+    object_list = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
+    paginator = Paginator(object_list, 3)
+    page = request.GET.get('page')
+    # current_date = datetime.date.today()
+    try:
+        guideline = paginator.page(page)
+    except PageNotAnInteger:
+        guideline = paginator.page(1)
+    except EmptyPage:
+        guideline = paginator.page(paginator.num_pages)
+    # guideline = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('publish_date')
+
     return render(request, 'datasheet/guideline_list.html',
-                  {'current_date': current_date,
-                   'guideline': guideline})
+                  #{'current_date': current_date,
+                  {'guideline': guideline})
 
 
 def guideline_detail(request, pk):
-    current_date = datetime.date.today()
+    # current_date = datetime.date.today()
     one_guideline = get_object_or_404(Guideline, pk=pk)
-    return render(request, 'datasheet/guideline_detail.html', {'one_guideline': one_guideline,
-                                                               'current_date': current_date})
+    return render(request, 'datasheet/guideline_detail.html', {'one_guideline': one_guideline})
+                                                               # 'current_date': current_date})
 
 
 def error_404_view(request, exception):
@@ -64,7 +75,7 @@ def error_500_view(request, *args, **argv):
 
 
 def guide_new(request):
-    current_date = datetime.date.today()
+    # current_date = datetime.date.today()
     if request.method == "POST":
         form = GuideForm(request.POST, request.FILES)
         if form.is_valid():
@@ -76,12 +87,12 @@ def guide_new(request):
     else:
         form = GuideForm()
 
-    return render(request, 'datasheet/guideline_edit.html', {'form': form,
-                                                             'current_date': current_date})
+    return render(request, 'datasheet/guideline_edit.html', {'form': form})
+                                                             # 'current_date': current_date})
 
 
 def guideline_edit(request, pk):
-    current_date = datetime.date.today()
+    # current_date = datetime.date.today()
     guide = get_object_or_404(Guideline, pk=pk)
     if request.method == "POST":
         form = GuideForm(request.POST, request.FILES, instance=guide)
@@ -94,8 +105,15 @@ def guideline_edit(request, pk):
     else:
         form = GuideForm(instance=guide)
 
-    return render(request, 'datasheet/guideline_edit.html', {'form': form,
-                                                             'current_date': current_date})
+    return render(request, 'datasheet/guideline_edit.html', {'form': form})
+                                                             #'current_date': current_date})
+
+
+class GuideListView(ListView):  # Object solution. It is proceeding as first.
+    queryset = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
+    context_object_name = 'guideline'
+    paginate_by = 3
+    template_name = 'desk/datasheet/guideline_list.html'
 
 
 class GuidelineViews(APIView):

@@ -7,6 +7,9 @@
   <em>{{ guide.text|linebreaksbr }}</em>
   <div class="date">
     <p>published date: {{ guide.publish_date }}</p>
+    <p>status: {{ guide.status }}</p>
   </div>
 {% endfor %}
+<!--  {% include 'datasheet/pagination.html' with page=guideline %}-->
+  {% include 'datasheet/pagination.html' with page=page_obj %}
 {% endblock %}
