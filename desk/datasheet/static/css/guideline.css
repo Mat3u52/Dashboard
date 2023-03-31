@@ -60,6 +60,9 @@ input, textarea {
     color: #D6D6D6;
     font-size: 14pt;
 }
+.search-style{
+    color: #03FBCE;
+}
 .footer{
     clear: both;
     vertical-align: bottom;

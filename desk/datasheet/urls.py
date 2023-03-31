@@ -8,6 +8,7 @@ urlpatterns = [
     path('guideline/<int:pk>', views.guideline_detail, name='guideline_detail'),
     path('guideline/new/', views.guide_new, name='guide_new'),
     path('guideline/<int:pk>/edit/', views.guideline_edit, name='guideline_edit'),
+    path('guideline/guideline_search/', views.guideline_search, name='guideline_search'),
     path('cart-items/', GuidelineViews.as_view()),
     path('cart-items/<int:pk>', GuidelineViews.as_view()),
 ]

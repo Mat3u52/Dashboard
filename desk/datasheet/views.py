@@ -1,5 +1,3 @@
-import datetime
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Guideline
@@ -44,7 +42,6 @@ def guideline_list(request):
     object_list = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
-    # current_date = datetime.date.today()
     try:
         guideline = paginator.page(page)
     except PageNotAnInteger:
@@ -53,29 +50,32 @@ def guideline_list(request):
         guideline = paginator.page(paginator.num_pages)
     # guideline = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('publish_date')
 
-    return render(request, 'datasheet/guideline_list.html',
-                  #{'current_date': current_date,
+    return render(request,
+                  'datasheet/guideline_list.html',
                   {'guideline': guideline})
 
 
 def guideline_detail(request, pk):
-    # current_date = datetime.date.today()
     one_guideline = get_object_or_404(Guideline, pk=pk)
-    return render(request, 'datasheet/guideline_detail.html', {'one_guideline': one_guideline})
-                                                               # 'current_date': current_date})
+    return render(request,
+                  'datasheet/guideline_detail.html',
+                  {'one_guideline': one_guideline})
 
 
 def error_404_view(request, exception):
     data = {"name": 'Guideline for AXI.'}
-    return render(request, 'datasheet/404.html', data)
+    return render(request,
+                  'datasheet/404.html',
+                  data)
 
 
 def error_500_view(request, *args, **argv):
-    return render(request, 'datasheet/500.html', status=500)
+    return render(request,
+                  'datasheet/500.html',
+                  status=500)
 
 
 def guide_new(request):
-    # current_date = datetime.date.today()
     if request.method == "POST":
         form = GuideForm(request.POST, request.FILES)
         if form.is_valid():
@@ -87,12 +87,12 @@ def guide_new(request):
     else:
         form = GuideForm()
 
-    return render(request, 'datasheet/guideline_edit.html', {'form': form})
-                                                             # 'current_date': current_date})
+    return render(request,
+                  'datasheet/guideline_edit.html',
+                  {'form': form})
 
 
 def guideline_edit(request, pk):
-    # current_date = datetime.date.today()
     guide = get_object_or_404(Guideline, pk=pk)
     if request.method == "POST":
         form = GuideForm(request.POST, request.FILES, instance=guide)
@@ -105,8 +105,23 @@ def guideline_edit(request, pk):
     else:
         form = GuideForm(instance=guide)
 
-    return render(request, 'datasheet/guideline_edit.html', {'form': form})
-                                                             #'current_date': current_date})
+    return render(request,
+                  'datasheet/guideline_edit.html',
+                  {'form': form})
+
+
+def guideline_search(request):
+    if request.method == "POST":
+        searched = request.POST.get('searched', False)
+        guideline = Guideline.objects.filter(title__contains=searched)
+        return render(request,
+                      'datasheet/guideline_search.html',
+                      {'searched': searched,
+                       'guideline': guideline})
+    else:
+        return render(request,
+                      'datasheet/guideline_search.html',
+                      {})
 
 
 class GuideListView(ListView):  # Object solution. It is proceeding as first.

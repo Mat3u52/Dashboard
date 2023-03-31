@@ -1,0 +1,22 @@
+{% extends 'datasheet/base.html' %}
+{% block content %}
+    {% if searched %}
+<h2>Your Searched For: <span class="search-style">{{ searched }}</span></h2>
+        <br/>
+<!--        {% for guide in guideline %}-->
+<!--            {{ guide }}<br/>-->
+<!--        {% endfor %}-->
+            {% for guide in guideline %}
+              <h2><a href="{% url 'guideline_detail' pk=guide.pk %}">{{ guide.title }}</a></h2>
+              <img src="{{ guide.image.url }}" alt="image" width="100px">
+              <em>{{ guide.text|linebreaksbr }}</em>
+              <div class="date">
+                <p>published date: {{ guide.publish_date }}</p>
+                <p>status: {{ guide.status }}</p>
+              </div>
+            {% endfor %}
+    {% else %}
+        <h2>Please, insert the phrase into the search area.</h2>
+    {% endif %}
+
+{% endblock %}

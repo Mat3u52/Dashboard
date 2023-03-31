@@ -8,3 +8,6 @@ class GuideForm(forms.ModelForm):
     class Meta:
         model = Guideline
         fields = ['title', 'version', 'text', 'image',]
+
+    class SearchForm(forms.Form):
+        query = forms.CharField()
