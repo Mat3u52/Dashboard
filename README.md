@@ -3,8 +3,11 @@
 ## The application is for preparing production instructions for the X-Ray inspection area. These instructions are necessary because different customers have different X-Ray inspection requirements.
 The quality department will fill in the information and then it will be shown in the production area for Inspectors working on AXI. 
 
-Below you can find UX shema of app:
-![Screenshot of UX shema.](https://github.com/Mat3u52/Dashboard/blob/main/UX_Dashboard.drawio.png)
+Below you can find UX / UI template of app:
+![Screenshot of UX template.](https://github.com/Mat3u52/Dashboard/blob/main/UX_Dashboard.drawio.png)
+
+Below you can find DB template of app:
+![Screenshot of DB template.](https://github.com/Mat3u52/Dashboard/blob/main/Datasheet.png)
 
 
 The app has been validated:
