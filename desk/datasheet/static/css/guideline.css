@@ -12,11 +12,11 @@ img{
     float:left;
     margin: 10px;
 }
-input, textarea {
-  background-color: #003229;
-  color: #FFFFFF;
-  border: 1px solid #008000;
-  border-radius: 4px;
+input, textarea{
+    background-color: #003229;
+    color: #FFFFFF;
+    border: 1px solid #008000;
+    border-radius: 4px;
 }
 .header{
     width: 100%;
@@ -76,4 +76,5 @@ input, textarea {
 .label{
     float: right;
     color: #828282;
+    padding: 10px;
 }

@@ -1,9 +1,9 @@
 venv
-img
+#img
 __pycache__/
 *.pyc
 *~
-/static
+#/static
 .DS_Store
 .idea
 *.sqlite3
