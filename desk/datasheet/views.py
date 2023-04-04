@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import Guideline
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from .forms import GuideForm
+from .forms import GuideForm, EmailPostForm
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 from django.views.generic import ListView
@@ -122,6 +122,21 @@ def guideline_search(request):
         return render(request,
                       'datasheet/guideline_search.html',
                       {})
+
+
+def guideline_share(request, pk):
+    guideline = get_object_or_404(Guideline, id=pk, status='certified')
+
+    if request.method == 'POST':
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+    else:
+        form = EmailPostForm()
+    return render(request,
+                  'datasheet/guideline_share.html',
+                  {'guideline': guideline,
+                   'form': form})
 
 
 class GuideListView(ListView):  # Object solution. It is proceeding as first.
