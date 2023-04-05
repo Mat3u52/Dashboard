@@ -15,6 +15,10 @@
     <a href="{% url 'guideline_edit' pk=one_guideline.pk %}">
       <button type="submit" class="btn btn-outline-success">Edit</button>
     </a>
+
+    <a href="{% url 'guideline_share' pk.id %}">
+      Share the guideline
+    </a>
     {% endif %}
   </div>
 {% endblock %}
