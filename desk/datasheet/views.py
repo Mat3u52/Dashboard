@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import GuidelineSerializer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.mail import send_mail
 
 
 class Image(TemplateView):
@@ -38,7 +39,6 @@ class ImageDisplay(DetailView):
 
 
 def guideline_list(request):
-    # object_list = Guideline.publish_date.all()
     object_list = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
     paginator = Paginator(object_list, 3)
     page = request.GET.get('page')
@@ -126,17 +126,29 @@ def guideline_search(request):
 
 def guideline_share(request, pk):
     guideline = get_object_or_404(Guideline, id=pk, status='certified')
+    sent = False
 
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            guideline_url = request.build_absolute_uri(guideline.get_absolute_url())
+            subject = '{} ({}) encourage to read the guideline "{}"'.format(cd['name'],
+                                                                            cd['email'],
+                                                                            guideline.title)
+            message = 'Please read "{}" on the webpage {}\n\n Added by {}: {}'.format(guideline.title,
+                                                                                      guideline_url,
+                                                                                      cd['name'],
+                                                                                      cd['comments'])
+            send_mail(subject, message, 'guideline2023@gmail.com', [cd['to']])
+            sent = True
     else:
         form = EmailPostForm()
     return render(request,
                   'datasheet/guideline_share.html',
                   {'guideline': guideline,
-                   'form': form})
+                   'form': form,
+                   'sent': sent})
 
 
 class GuideListView(ListView):  # Object solution. It is proceeding as first.
