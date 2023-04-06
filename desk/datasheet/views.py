@@ -125,19 +125,20 @@ def guideline_search(request):
 
 
 def guideline_share(request, pk):
-    guideline = get_object_or_404(Guideline, id=pk, status='certified')
+    guideline = get_object_or_404(Guideline, pk=pk, status='certified')
     sent = False
 
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            guideline_url = request.build_absolute_uri(guideline.get_absolute_url())
+            #guideline_url = request.build_absolute_uri(guideline.get_absolute_url())
+            guideline_url = request.build_absolute_uri()
             subject = '{} ({}) encourage to read the guideline "{}"'.format(cd['name'],
                                                                             cd['email'],
                                                                             guideline.title)
             message = 'Please read "{}" on the webpage {}\n\n Added by {}: {}'.format(guideline.title,
-                                                                                      guideline_url,
+                                                                                      guideline_url[0:-17],
                                                                                       cd['name'],
                                                                                       cd['comments'])
             send_mail(subject, message, 'guideline2023@gmail.com', [cd['to']])
