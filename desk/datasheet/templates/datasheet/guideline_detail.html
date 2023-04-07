@@ -16,7 +16,8 @@
       <button type="submit" class="btn btn-outline-success">Edit</button>
     </a>
 
-    <a href="{% url 'guideline_share' pk.id %}">
+
+    <a href="{% url 'guideline_share' pk=one_guideline.pk %}">
       Share the guideline
     </a>
     {% endif %}
