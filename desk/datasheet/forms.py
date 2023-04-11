@@ -1,5 +1,5 @@
 from django import forms
-from .models import Guideline
+from .models import Guideline, Comment
 
 
 class GuideForm(forms.ModelForm):
@@ -9,9 +9,6 @@ class GuideForm(forms.ModelForm):
         model = Guideline
         fields = ['title', 'version', 'text', 'image',]
 
-    # class SearchForm(forms.Form):
-    #     query = forms.CharField()
-
 
 class EmailPostForm(forms.Form):
     name = forms.CharField(max_length=25)
@@ -19,3 +16,9 @@ class EmailPostForm(forms.Form):
     to = forms.EmailField()
     comments = forms.CharField(required=False,
                                widget=forms.Textarea)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        filter = ('name', 'email', 'body')
