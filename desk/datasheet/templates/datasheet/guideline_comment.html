@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'datasheet/base.html' %}
+
+{% block content %}
+<h2>Add a new comment:</h2>
+<!--      <form method="post">-->
+<form method="post" class="post-form">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-outline-success">Add Comment</button>
+</form>
+
+{% endblock %}

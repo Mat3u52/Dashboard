@@ -8,18 +8,41 @@
 
     {% if one_guideline.publish_date %}
     <div class="date">
-      {{ one_guideline.publish_date }}
+      published date: {{ one_guideline.publish_date }}
     </div>
     {% endif %}
     {% if user.is_authenticated %}
     <a href="{% url 'guideline_edit' pk=one_guideline.pk %}">
       <button type="submit" class="btn btn-outline-success">Edit</button>
     </a>
-
-
+    {% endif %}
+    {% if one_guideline.status == 'certified' %}
     <a href="{% url 'guideline_share' pk=one_guideline.pk %}">
-      Share the guideline
+      <button type="submit" class="btn btn-outline-success">Send Email</button>
     </a>
     {% endif %}
+
+    {% with one_guideline.comments.count as total_comments %}
+    <h2 class="headComment">
+      {{ total_comments }} Comment{{ total_comments|pluralize:"s:" }}
+    </h2><br />
+    {% endwith %}
+
+    {% for comment in one_guideline.comments.all %}
+    <div class="comment">
+      <p class="info">
+        Comment {{ forloop.counter }} added by {{ comment.name }}
+        {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+    </div>
+    {% empty %}
+      <p>Not Comments Yet...</p>
+    {% endfor %}
+    <br />
+    <a href="{% url 'guideline_comment' pk=one_guideline.pk %}">
+      <button type="submit" class="btn btn-outline-success">Add Comment</button>
+    </a>
+
   </div>
 {% endblock %}

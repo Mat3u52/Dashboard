@@ -58,6 +58,8 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(self.product2.title, 'test02')
 
+    # python3 manage.py test datasheet
+
     # def test_guide_new_create_POST(self):
     #
     #     url = reverse('guide_new')
