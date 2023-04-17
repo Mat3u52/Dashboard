@@ -85,6 +85,14 @@ input, label{
     display:flex;
     flex-direction:column;
 }
+.labelMain{
+    color: #828282;
+    padding: 10px;
+    display: inline-block;
+    margin-left: auto;
+    align: right;
+
+}
 .headComment{
     padding: 10px;
 }
