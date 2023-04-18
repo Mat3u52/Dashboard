@@ -62,27 +62,6 @@ def guideline_detail(request, pk):
                   'datasheet/guideline_detail.html',
                   {'one_guideline': one_guideline})
 
-    # comments = one_guideline.comments.filter(active=True)
-
-    # if request.method == 'POST':
-    #     comment_form = CommentForm(data=request.POST)
-    #     if comment_form.is_valid():
-    #         new_comment = comment_form.save(commit=False)
-    #         new_comment.one_guideline = one_guideline
-    #         new_comment.save()
-    #         return redirect('guideline_comment', pk=one_guideline.pk)
-    #         # return HttpResponseRedirect('/api/guideline/9')
-    #         # return redirect('guideline_detail', pk=one_guideline.pk)
-    # else:
-    #     comment_form = CommentForm()
-    #     # return redirect('guideline_detail', pk=one_guideline.pk)
-    #
-    # return render(request,
-    #               'datasheet/guideline_detail.html',
-    #               {'one_guideline': one_guideline,
-    #                'comments': comments,
-    #                'comment_form': comment_form})
-
 
 def error_404_view(request, exception):
     data = {"name": 'Guideline for AXI.'}
@@ -174,12 +153,12 @@ def guideline_share(request, pk):
                    'sent': sent})
 
 
-class GuideListView(ListView):  # Object solution. It is proceeding as first.
-    queryset = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
-    context_object_name = 'guideline'
-    paginate_by = 3
-    template_name = 'datasheet/guideline_list.html'
-    # template_name = 'desk/datasheet/guideline_list.html'
+# class GuideListView(ListView):  # Object solution. It is proceeding as first.
+#     queryset = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('-publish_date')
+#     context_object_name = 'guideline'
+#     paginate_by = 3
+#     template_name = 'datasheet/guideline_list.html'
+#     # template_name = 'desk/datasheet/guideline_list.html'
 
 
 class GuideCommentView(CreateView):
@@ -192,7 +171,6 @@ class GuideCommentView(CreateView):
         return super().form_valid(form)
 
     success_url = reverse_lazy('guideline_list')
-    # fields = '__all__'
 
 
 class GuidelineViews(APIView):
