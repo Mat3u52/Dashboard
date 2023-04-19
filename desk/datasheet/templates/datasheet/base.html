@@ -21,12 +21,18 @@
     <div class="header">
       <h1><a href="{% url 'guideline_list' %}">Guideline for Automatic X-Ray Inspection</a>
         {% if user.is_authenticated %}
-          <div class="label">
+          <div class="labelMain">
             <a href="{% url 'guide_new' %}">
               <button type="submit" class="btn btn-outline-success">New</button>
             </a>
             <a href="{% url 'admin:index' %}">
               <button type="submit" class="btn btn-outline-success">{{user.username}}</button>
+            </a>
+          </div>
+        {% else %}
+          <div class="labelMain">
+            <a href="{% url 'admin:index' %}">
+              <button type="submit" class="btn btn-outline-success">User</button>
             </a>
           </div>
         {% endif %}
