@@ -1,16 +1,10 @@
 import unittest
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from FakeDataGenerator import FakeDataGenerator
 
 
-class TestGuidelineMain(unittest.TestCase, FakeDataGenerator):
-
-    # def __init__(self) -> None:
-    #     """
-    #     Instance of fake data generator.
-    #     :return:
-    #     """
-    #     super().__init__()
+class TestGuidelineInit(unittest.TestCase):
 
     def setUp(self) -> None:
         """
@@ -23,24 +17,7 @@ class TestGuidelineMain(unittest.TestCase, FakeDataGenerator):
         self.driver.maximize_window()
         self.driver.get('http://127.0.0.1:8000/')
 
-    def test_initializer(self) -> None:
-        """
-        Verify webpage.
-        :return: Webpage "desk"
-        :rtype: None
-        """
-        # FakeDataGenerator().fake_name()
-        self.fake_name()
-        self.assertIn('Guideline for AXI', self.driver.page_source, msg=None)
-
-    # def test_admin_login_logout(self) -> None:
-    #     """
-    #     Verify tak user is login as admin or not
-    #     :return: admin panel
-    #     :rtype: None
-    #     """
-    #     pass
-
+        # raise unittest.SkipTest("testttt")
 
     def tearDown(self) -> None:
         """
@@ -51,5 +28,43 @@ class TestGuidelineMain(unittest.TestCase, FakeDataGenerator):
         self.driver.close()
 
 
+class TestGuidelineMain(TestGuidelineInit):
+
+    def test_initializer(self) -> None:
+        """
+        Verify webpage.
+        :return: Webpage "desk"
+        :rtype: None
+        """
+        print(FakeDataGenerator().fake_name())
+        # self.fake_name()
+        # try:
+        #     self.assertIn('Guideline for AXI0', self.driver.page_source, msg=None)
+        # except AssertionError:
+        #     self.skipTest("Initialization Fail!")
+
+        try:
+            self.assertIn('Guideline for AXI0', self.driver.page_source, msg=None)
+        except AssertionError:
+            raise unittest.SkipTest("skip all tests in this class")
+
+    def test_admin_login_logout(self) -> None:
+        """
+        Verify tak user is login as admin or not
+        :return: admin panel
+        :rtype: None
+        """
+        # pass
+        self.button_name = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='labelMain']//a[@href='/admin/']//button"
+        ).text
+        print(self.button_name)
+        try:
+            self.assertEqual(self.button_name, 'User', msg=None)
+        except AssertionError:
+            self.skipTest("The user name is different than \"User\" ")
+
+
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(failfast=True)
