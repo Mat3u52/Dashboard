@@ -1,6 +1,8 @@
 import unittest
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+# from selenium.common.exceptions import NoSuchElementException
 from FakeDataGenerator import FakeDataGenerator
 
 
@@ -28,43 +30,55 @@ class TestGuidelineInit(unittest.TestCase):
         self.driver.close()
 
 
-class TestGuidelineMain(TestGuidelineInit):
+class TestAbandon(TestGuidelineInit):
 
     def test_initializer(self) -> None:
         """
-        Verify webpage.
+        Verify webpage is exist.
         :return: Webpage "desk"
         :rtype: None
         """
         print(FakeDataGenerator().fake_name())
-        # self.fake_name()
-        # try:
-        #     self.assertIn('Guideline for AXI0', self.driver.page_source, msg=None)
-        # except AssertionError:
-        #     self.skipTest("Initialization Fail!")
 
         try:
-            self.assertIn('Guideline for AXI0', self.driver.page_source, msg=None)
+            self.assertIn('Guideline for AXI', self.driver.page_source, msg=None)
+            # self.fail('fuckup')
         except AssertionError:
             raise unittest.SkipTest("skip all tests in this class")
+        time.sleep(2)
+
+
+class TestGuidelineMain(TestGuidelineInit):
 
     def test_admin_login_logout(self) -> None:
         """
-        Verify tak user is login as admin or not
+        Verify the user is login as admin or not. If not then sign in as admin.
         :return: admin panel
         :rtype: None
         """
-        # pass
+        # with self.assertRaises(NoSuchElementException):
         self.button_name = self.driver.find_element(
             By.XPATH,
             "//div[@class='labelMain']//a[@href='/admin/']//button"
         ).text
+        self.driver.find_element(
+            By.XPATH,
+            "//div[@class='labelMain']//a[@href='/admin/']//button"
+        ).click()
+
         print(self.button_name)
         try:
             self.assertEqual(self.button_name, 'User', msg=None)
+            self.input_username = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='form-row']//input[@id='id_username']"
+            )
+            self.input_username.send_keys("admin")
+            time.sleep(2)
         except AssertionError:
             self.skipTest("The user name is different than \"User\" ")
 
 
 if __name__ == "__main__":
     unittest.main(failfast=True)
+    # unittest.main(exit=False)
