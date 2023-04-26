@@ -19,7 +19,7 @@ The app has been validated:
 
 Hosting on pythonanywhere:
 
-http://mat3u52.pythonanywhere.com/
+https://mat3u52.pythonanywhere.com/
 
 ### *The application is a dummy, and it will never be used.*
 
