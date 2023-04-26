@@ -20,6 +20,16 @@ input, textarea{
     color: #FFFFFF;
     border: 1px solid #008000;
     border-radius: 4px;
+    width: 80%;
+}
+select{
+    font-family: 'Lato', sans-sarif;
+    background-color: #003229;
+    color: #FFFFFF;
+    border: 1px solid #008000;
+    border-radius: 4px;
+    width: 80%;
+    padding: 6px;
 }
 .header{
     width: 100%;

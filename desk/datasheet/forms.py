@@ -9,6 +9,12 @@ class GuideForm(forms.ModelForm):
         model = Guideline
         fields = ['title', 'version', 'text', 'image',]
 
+        VERSION_CHOICES = [tuple([x, x/5]) for x in range(1, 21)]
+
+        widgets = {
+            'version': forms.Select(choices=VERSION_CHOICES),
+        }
+
 
 class EmailPostForm(forms.Form):
     name = forms.CharField(max_length=25)

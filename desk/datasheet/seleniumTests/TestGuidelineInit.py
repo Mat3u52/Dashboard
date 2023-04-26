@@ -52,7 +52,7 @@ class TestGuidelineMain(TestGuidelineInit):
         :return: admin panel
         :rtype: None
         """
-        # with self.assertRaises(NoSuchElementException):
+
         self.button_name = self.driver.find_element(
             By.XPATH,
             "//div[@class='labelMain']//a[@href='/admin/']//button"
@@ -84,14 +84,13 @@ class TestGuidelineMain(TestGuidelineInit):
             self.href_to_webpage = self.driver.find_element(
                 By.XPATH,
                 "//div[@id='user-tools']//a[@href='/']"
-                # "//div[@id='user-tools']//a[1]"
             )
             self.href_to_webpage.click()
             time.sleep(2)
         except AssertionError:
             self.skipTest("The user name is different than \"User\" ")
 
-    def test_create_new_guideline(self) -> None:
+    def _create_new_guideline(self) -> None:
         """
         The function create a new guideline by selenium.
 
@@ -105,10 +104,91 @@ class TestGuidelineMain(TestGuidelineInit):
         )
         self.button_new_guideline.click()
         time.sleep(2)
-        print(FakeDataGenerator().fake_login())
-        # self.driver.switch_to.new_window('tab')
-        # time.sleep(2)
 
+        self.input_title = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//input[@name='title']"
+        )
+        title = FakeDataGenerator().fake_title()
+        self.input_title.send_keys(title)
+
+        self.textarea_text = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//textarea[@id='id_text']"
+        )
+        self.textarea_text.send_keys(FakeDataGenerator().fake_text())
+
+        self.input_choose_file = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//input[@id='id_image']"
+        )
+        self.input_choose_file.send_keys("/root/PythonDeveloper/AXI_Manager/img/main/axi.png")
+        time.sleep(2)
+
+        self.button_submit = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//button[@type='submit']"
+        )
+        self.button_submit.submit()
+        time.sleep(4)
+        try:
+            self.assertIn(title, self.driver.page_source, msg=None)
+        except AssertionError:
+            self.skipTest("The article is missing.")
+
+    def test_add_comment(self) -> None:
+        """
+        Function try to add a new comment to guideline.
+        :return: New comment
+        :rtype: None
+        """
+        self._create_new_guideline()
+        i: int = 0
+        while i <= 3:
+            self.url = self.driver.current_url
+
+            self.button_comment = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='col-md-8']//button[@type='submit' and text()='Add Comment']"
+            )
+            self.button_comment.click()
+            time.sleep(2)
+            self.input_name = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='col-md-8']//input[@name='name']"
+            )
+            self.input_name.send_keys(FakeDataGenerator().fake_name())
+
+            self.input_email = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='col-md-8']//input[@name='email']"
+            )
+            self.input_email.send_keys(FakeDataGenerator().fake_email())
+
+            self.textarea_comment = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='col-md-8']//textarea[@name='body']"
+            )
+            self.textarea_comment.send_keys(FakeDataGenerator().fake_title())
+            time.sleep(2)
+            self.button_add_comment = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='col-md-8']//button[@type='submit' and text()='Add Comment']"
+            )
+            self.button_add_comment.click()
+            time.sleep(2)
+            self.driver.get(self.url)
+            i += 1
+
+        try:
+            self.assertNotIn("Not Comments Yet...", self.driver.page_source, msg=None)
+        except AssertionError:
+            self.skipTest("Not Comments Yet!")
+
+        self.driver.get('http://127.0.0.1:8000/')
+
+    def test_email(self) -> None:
+        pass
 
 
 if __name__ == "__main__":

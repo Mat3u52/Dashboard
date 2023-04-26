@@ -48,11 +48,12 @@ def guideline_list(request):
         guideline = paginator.page(1)
     except EmptyPage:
         guideline = paginator.page(paginator.num_pages)
-    # guideline = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('publish_date')
+        # guideline = Guideline.objects.filter(publish_date__lte=timezone.now()).order_by('publish_date')
 
     return render(request,
                   'datasheet/guideline_list.html',
-                  {'guideline': guideline})
+                  {'page': page,
+                   'guideline': guideline})
 
 
 def guideline_detail(request, pk):
