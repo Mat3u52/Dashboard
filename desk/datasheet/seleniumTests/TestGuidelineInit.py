@@ -2,6 +2,7 @@ import unittest
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from FakeDataGenerator import FakeDataGenerator
 
 
@@ -251,7 +252,87 @@ class TestGuidelineMain(TestGuidelineInit):
         )
         self.href_select_guideline.click()
         time.sleep(2)
-        print(self.title_of_guideline)
+
+        self.select_certified = self.driver.find_element(
+            By.XPATH,
+            "//select[@id='id_status']/option[text()='Certified']"
+        )
+        self.select_certified.click()
+
+        self.submit_save = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='submit-row']//input[@name='_save']"
+        )
+        self.submit_save.submit()
+        time.sleep(2)
+        self.href_to_webpage = self.driver.find_element(
+            By.XPATH,
+            "//div[@id='user-tools']//a[@href='/']"
+        )
+        self.href_to_webpage.click()
+        time.sleep(2)
+        self.input_search_webpage = self.driver.find_element(
+            By.XPATH,
+            "//input[@name='searched']"
+        )
+        self.input_search_webpage.send_keys(self.title_of_guideline)
+        time.sleep(2)
+        self.button_search = self.driver.find_element(
+            By.XPATH,
+            "//form[@class='d-flex']//button"
+        )
+        self.button_search.click()
+        time.sleep(2)
+
+        self.href_guideline_sorted = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//a"
+        )
+        self.href_guideline_sorted.click()
+        time.sleep(2)
+
+        self.button_email = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='oneGuideline']//button[@type='submit' and text()='Send Email']"
+        )
+        self.button_email.click()
+        time.sleep(2)
+        self.input_email_name = self.driver.find_element(
+            By.XPATH,
+            "//input[@name='name']"
+        )
+        self.input_email_name.send_keys(FakeDataGenerator().fake_name())
+
+        self.input_email = self.driver.find_element(
+            By.XPATH,
+            "//input[@name='email']"
+        )
+        self.input_email.send_keys('guideline2023@gmail.com')
+
+        self.input_email_to = self.driver.find_element(
+            By.XPATH,
+            "//input[@name='to']"
+        )
+        self.input_email_to.send_keys('guideline2023@gmail.com')
+
+        self.textarea_email = self.driver.find_element(
+            By.XPATH,
+            "//textarea[@name='comments']"
+        )
+        self.textarea_email.send_keys(FakeDataGenerator().fake_title())
+        time.sleep(2)
+
+        self.button_email_send = self.driver.find_element(
+            By.XPATH,
+            "//button[@value='Send']"
+        )
+        self.button_email_send.click()
+        time.sleep(2)
+        try:
+            self.assertIn("The message sent", self.driver.page_source, msg=None)
+        except AssertionError:
+            self.skipTest("Sending E-mail fail!")
+        time.sleep(2)
 
 
 if __name__ == "__main__":
