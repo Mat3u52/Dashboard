@@ -12,7 +12,7 @@ Below you can find DB template of app:
 
 The app has been validated:
 - [X] Google Chrome
-- [ ] Mozilla Firefox
+- [X] Mozilla Firefox
 - [ ] Opera
 - [ ] Microsoft Edge
 - [ ] Safari

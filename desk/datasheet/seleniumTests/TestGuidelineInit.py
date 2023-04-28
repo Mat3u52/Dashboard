@@ -109,8 +109,8 @@ class TestGuidelineMain(TestGuidelineInit):
             By.XPATH,
             "//div[@class='col-md-8']//input[@name='title']"
         )
-        title = FakeDataGenerator().fake_title()
-        self.input_title.send_keys(title)
+        self.title = FakeDataGenerator().fake_title()
+        self.input_title.send_keys(self.title)
 
         self.textarea_text = self.driver.find_element(
             By.XPATH,
@@ -132,7 +132,7 @@ class TestGuidelineMain(TestGuidelineInit):
         self.button_submit.submit()
         time.sleep(4)
         try:
-            self.assertIn(title, self.driver.page_source, msg=None)
+            self.assertIn(self.title, self.driver.page_source, msg=None)
         except AssertionError:
             self.skipTest("The article is missing.")
 
@@ -188,7 +188,70 @@ class TestGuidelineMain(TestGuidelineInit):
         self.driver.get('http://127.0.0.1:8000/')
 
     def test_email(self) -> None:
-        pass
+        """
+        Certified the guideline and send the email
+        :return: send email
+        :rtype: None
+        """
+        self.title_of_guideline = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//h2[1]"
+        ).text
+        self.button_name = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='labelMain']//a[@href='/admin/']//button"
+        ).text
+        self.driver.find_element(
+            By.XPATH,
+            "//div[@class='labelMain']//a[@href='/admin/']//button"
+        ).click()
+
+        try:
+            self.assertEqual(self.button_name, 'User', msg=None)
+
+            self.input_username = self.driver.find_element(
+                By.XPATH,
+                "//div[@class='form-row']//input[@id='id_username']"
+            )
+            self.input_password = self.driver.find_element(
+                By.XPATH,
+                "//div[@class ='form-row']//input[@id='id_password']"
+            )
+            self.submit_user_pass = self.driver.find_element(
+                By.XPATH,
+                "//div[@class ='submit-row']//input[@type='submit']"
+            )
+            self.input_username.send_keys("admin")
+            self.input_password.send_keys("admin")
+            self.submit_user_pass.submit()
+            time.sleep(2)
+        except AssertionError:
+            self.skipTest("The user name is different than \"User\" ")
+
+        self.href_guideline = self.driver.find_element(
+            By.XPATH,
+            "//div[@class ='app-datasheet module']//a[@href='/admin/datasheet/guideline/']"
+        )
+        self.href_guideline.click()
+        time.sleep(2)
+        self.input_search_admin = self.driver.find_element(
+            By.XPATH,
+            "//form[@id='changelist-search']//input[@id='searchbar']"
+        )
+        self.input_search_admin.send_keys(self.title_of_guideline)
+        self.submit_search_admin = self.driver.find_element(
+            By.XPATH,
+            "//form[@id='changelist-search']//input[@type='submit']"
+        )
+        self.submit_search_admin.click()
+        time.sleep(2)
+        self.href_select_guideline = self.driver.find_element(
+            By.XPATH,
+            "//table[@id='result_list']//th[@class='field-title']//a[1]"
+        )
+        self.href_select_guideline.click()
+        time.sleep(2)
+        print(self.title_of_guideline)
 
 
 if __name__ == "__main__":
