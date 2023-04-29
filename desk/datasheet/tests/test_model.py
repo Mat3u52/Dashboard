@@ -5,7 +5,11 @@ from django.contrib.auth.models import User
 
 class TestModels(TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
+        """
+        Adjust dummy data in DB
+        :return: Init data
+        """
         self.user = User.objects.create(username='Zenek')
         self.guideline = Guideline.objects.create(
             title='testModel',

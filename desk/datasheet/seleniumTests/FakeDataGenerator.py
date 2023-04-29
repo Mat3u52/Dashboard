@@ -1,10 +1,8 @@
-# from abc import ABC, abstractmethod
 from faker import Faker
 
 
 class FakeDataGenerator(Faker):
-    # , Faker
-    # @abstractmethod
+
     def __init__(self) -> None:
         """
         Initialize Faker() in localization eng

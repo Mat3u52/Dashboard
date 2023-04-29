@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class TestViews(TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.client = Client()
         self.guideline_list_url = reverse('guideline_list')
         self.guideline_new_url = reverse('guide_new')
@@ -21,17 +21,17 @@ class TestViews(TestCase):
             image='image.png',
         )
 
-    def test_guideline_list_GET(self):
+    def test_guideline_list_GET(self) -> None:
         response = self.client.get(self.guideline_list_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'datasheet/guideline_list.html')
 
-    def test_guideline_detail_GET(self):
+    def test_guideline_detail_GET(self) -> None:
         response = self.client.get(self.guideline_detail_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'datasheet/guideline_detail.html')
 
-    def test_guide_new_POST(self):
+    def test_guide_new_POST(self) -> None:
         self.product2 = Guideline.objects.create(
             title='test02',
             version='0.2',
