@@ -1,10 +1,12 @@
 {% extends 'datasheet/base.html' %}
 
 {% block content %}
-<h2>Creator of a new guideline for AXI</h2>
-<form method="post" class="post-form" enctype="multipart/form-data">
+{% if user.is_authenticated %}
+  <h2>Create a new / Update the guideline.</h2>
+  <form method="post" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="btn btn-outline-success">Save</button>
-</form>
+  </form>
+{% endif %}
 {% endblock %}
