@@ -1,5 +1,5 @@
-# Dashboard - AXI:
-## The draft of the project in the Django framework. My first steps.
+# Dashboard - AXI guideline:
+
 ## The application is for preparing production instructions for the X-Ray inspection area. These instructions are necessary because different customers have different X-Ray inspection requirements.
 The quality department will fill in the information and then it will be shown in the production area for Inspectors working on AXI. 
 The construction of the application is similar to a blog app.
