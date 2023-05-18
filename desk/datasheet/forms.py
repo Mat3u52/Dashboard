@@ -4,10 +4,11 @@ from .models import Guideline, Comment
 
 class GuideForm(forms.ModelForm):
     title = forms.CharField(help_text='maximum 250 characters')
+    # version = forms.ChoiceField(initial=2)
 
     class Meta:
         model = Guideline
-        fields = ['title', 'version', 'text', 'image',]
+        fields = ['title', 'version', 'text', 'image', 'status',]
 
         VERSION_CHOICES = [tuple([x, x/5]) for x in range(1, 21)]
 
