@@ -4,7 +4,7 @@ from .models import Guideline, Comment
 
 class GuideForm(forms.ModelForm):
     title = forms.CharField(help_text='maximum 250 characters')
-    # version = forms.ChoiceField(initial=2)
+    # version = forms.ChoiceField(help_text='your guideline version will be automatically increased')
 
     class Meta:
         model = Guideline
@@ -14,6 +14,9 @@ class GuideForm(forms.ModelForm):
 
         widgets = {
             'version': forms.Select(choices=VERSION_CHOICES),
+        }
+        help_texts = {
+            'version': 'your guideline version will be automatically increased',
         }
 
 
