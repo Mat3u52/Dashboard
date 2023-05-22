@@ -31,7 +31,8 @@
           </div>
         {% else %}
           <div class="labelMain">
-            <a href="{% url 'admin:index' %}">
+<!--            <a href="{% url 'admin:index' %}">-->
+            <a href="{% url 'users:login' %}">
               <button type="submit" class="btn btn-outline-success">User</button>
             </a>
           </div>
@@ -45,7 +46,7 @@
       </form>
     </div>
     <div class="pageHeader">
-      <h3>Customer requirements:</h3>
+      <h3></h3>
     </div>
 
     {% comment %}
@@ -62,7 +63,9 @@
 
     <div class="footer">
       <br />
-      <p>Copyright &#169; {% now "d-m-Y" %}r.<br />Mateusz Kołodziej</p>
+      <p>Copyright &#169; {% now "d-m-Y" %}r.<br />
+        <a href="http://www.mateusz-kolodziej.waw.pl/">Mateusz Kołodziej</a>
+      </p>
     </div>
   </body>
 </html>
