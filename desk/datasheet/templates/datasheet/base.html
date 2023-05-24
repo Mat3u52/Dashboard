@@ -35,6 +35,9 @@
         {% else %}
           <div class="labelMain">
 <!--            <a href="{% url 'admin:index' %}">-->
+            <a href="{% url 'users:register' %}">
+              <button type="submit" class="btn btn-outline-success">Register</button>
+            </a>
             <a href="{% url 'users:login' %}">
               <button type="submit" class="btn btn-outline-success">User</button>
             </a>
