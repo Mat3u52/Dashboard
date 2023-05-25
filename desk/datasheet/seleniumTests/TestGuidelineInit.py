@@ -56,11 +56,13 @@ class TestGuidelineMain(TestGuidelineInit):
 
         self.button_name = self.driver.find_element(
             By.XPATH,
-            "//div[@class='labelMain']//a[@href='/admin/']//button"
+            # "//div[@class='labelMain']//a[@href='/admin/']//button"
+            "//div[@class='labelMain']//a[@href='/users/login/']//button"
         ).text
         self.driver.find_element(
             By.XPATH,
-            "//div[@class='labelMain']//a[@href='/admin/']//button"
+            # "//div[@class='labelMain']//a[@href='/admin/']//button"
+            "//div[@class='labelMain']//a[@href='/users/login/']//button"
         ).click()
 
         try:
@@ -68,26 +70,29 @@ class TestGuidelineMain(TestGuidelineInit):
 
             self.input_username = self.driver.find_element(
                 By.XPATH,
-                "//div[@class='form-row']//input[@id='id_username']"
+                # "//div[@class='form-row']//input[@id='id_username']"
+                "//div[@class='col-md-8']//input[@id='id_username']"
             )
             self.input_password = self.driver.find_element(
                 By.XPATH,
-                "//div[@class ='form-row']//input[@id='id_password']"
+                # "//div[@class ='form-row']//input[@id='id_password']"
+                "//div[@class ='col-md-8']//input[@id='id_password']"
             )
             self.submit_user_pass = self.driver.find_element(
                 By.XPATH,
-                "//div[@class ='submit-row']//input[@type='submit']"
+                # "//div[@class ='submit-row']//input[@type='submit']"
+                "//div[@class ='col-md-8']//button[@type='submit']"
             )
             self.input_username.send_keys("admin")
             self.input_password.send_keys("admin")
             self.submit_user_pass.submit()
             time.sleep(2)
-            self.href_to_webpage = self.driver.find_element(
-                By.XPATH,
-                "//div[@id='user-tools']//a[@href='/']"
-            )
-            self.href_to_webpage.click()
-            time.sleep(2)
+            # self.href_to_webpage = self.driver.find_element(
+            #     By.XPATH,
+            #     "//div[@id='user-tools']//a[@href='/']"
+            # )
+            # self.href_to_webpage.click()
+            # time.sleep(2)
         except AssertionError:
             self.skipTest("The user name is different than \"User\" ")
 
@@ -200,11 +205,13 @@ class TestGuidelineMain(TestGuidelineInit):
         ).text
         self.button_name = self.driver.find_element(
             By.XPATH,
-            "//div[@class='labelMain']//a[@href='/admin/']//button"
+            # "//div[@class='labelMain']//a[@href='/admin/']//button"
+            "//div[@class='labelMain']//a[@href='/users/login/']//button"
         ).text
         self.driver.find_element(
             By.XPATH,
-            "//div[@class='labelMain']//a[@href='/admin/']//button"
+            # "//div[@class='labelMain']//a[@href='/admin/']//button"
+            "//div[@class='labelMain']//a[@href='/users/login/']//button"
         ).click()
 
         try:
@@ -212,15 +219,18 @@ class TestGuidelineMain(TestGuidelineInit):
 
             self.input_username = self.driver.find_element(
                 By.XPATH,
-                "//div[@class='form-row']//input[@id='id_username']"
+                # "//div[@class='form-row']//input[@id='id_username']"
+                "//div[@class='col-md-8']//input[@id='id_username']"
             )
             self.input_password = self.driver.find_element(
                 By.XPATH,
-                "//div[@class ='form-row']//input[@id='id_password']"
+                # "//div[@class ='form-row']//input[@id='id_password']"
+                "//div[@class ='col-md-8']//input[@id='id_password']"
             )
             self.submit_user_pass = self.driver.find_element(
                 By.XPATH,
-                "//div[@class ='submit-row']//input[@type='submit']"
+                # "//div[@class ='submit-row']//input[@type='submit']"
+                "//div[@class ='col-md-8']//button[@type='submit']"
             )
             self.input_username.send_keys("admin")
             self.input_password.send_keys("admin")
@@ -229,6 +239,8 @@ class TestGuidelineMain(TestGuidelineInit):
         except AssertionError:
             self.skipTest("The user name is different than \"User\" ")
 
+        # ---Start Admin Panel---
+        self.driver.get('http://127.0.0.1:8000/admin/')  # added 24-05-2023
         self.href_guideline = self.driver.find_element(
             By.XPATH,
             "//div[@class ='app-datasheet module']//a[@href='/admin/datasheet/guideline/']"
@@ -271,6 +283,8 @@ class TestGuidelineMain(TestGuidelineInit):
         )
         self.href_to_webpage.click()
         time.sleep(2)
+        # ---The End---
+
         self.input_search_webpage = self.driver.find_element(
             By.XPATH,
             "//input[@name='searched']"
@@ -290,6 +304,32 @@ class TestGuidelineMain(TestGuidelineInit):
         )
         self.href_guideline_sorted.click()
         time.sleep(2)
+
+        # --- Start a new test ---
+
+
+
+        # --- The End a new part ---
+
+        # self.input_search_webpage = self.driver.find_element(
+        #     By.XPATH,
+        #     "//input[@name='searched']"
+        # )
+        # self.input_search_webpage.send_keys(self.title_of_guideline)
+        # time.sleep(2)
+        # self.button_search = self.driver.find_element(
+        #     By.XPATH,
+        #     "//form[@class='d-flex']//button"
+        # )
+        # self.button_search.click()
+        # time.sleep(2)
+        #
+        # self.href_guideline_sorted = self.driver.find_element(
+        #     By.XPATH,
+        #     "//div[@class='col-md-8']//a"
+        # )
+        # self.href_guideline_sorted.click()
+        # time.sleep(2)
 
         self.button_email = self.driver.find_element(
             By.XPATH,
