@@ -240,49 +240,49 @@ class TestGuidelineMain(TestGuidelineInit):
             self.skipTest("The user name is different than \"User\" ")
 
         # ---Start Admin Panel---
-        self.driver.get('http://127.0.0.1:8000/admin/')  # added 24-05-2023
-        self.href_guideline = self.driver.find_element(
-            By.XPATH,
-            "//div[@class ='app-datasheet module']//a[@href='/admin/datasheet/guideline/']"
-        )
-        self.href_guideline.click()
-        time.sleep(2)
-        self.input_search_admin = self.driver.find_element(
-            By.XPATH,
-            "//form[@id='changelist-search']//input[@id='searchbar']"
-        )
-        self.input_search_admin.send_keys(self.title_of_guideline)
-        self.submit_search_admin = self.driver.find_element(
-            By.XPATH,
-            "//form[@id='changelist-search']//input[@type='submit']"
-        )
-        self.submit_search_admin.click()
-        time.sleep(2)
-        self.href_select_guideline = self.driver.find_element(
-            By.XPATH,
-            "//table[@id='result_list']//th[@class='field-title']//a[1]"
-        )
-        self.href_select_guideline.click()
-        time.sleep(2)
-
-        self.select_certified = self.driver.find_element(
-            By.XPATH,
-            "//select[@id='id_status']/option[text()='Certified']"
-        )
-        self.select_certified.click()
-
-        self.submit_save = self.driver.find_element(
-            By.XPATH,
-            "//div[@class='submit-row']//input[@name='_save']"
-        )
-        self.submit_save.submit()
-        time.sleep(2)
-        self.href_to_webpage = self.driver.find_element(
-            By.XPATH,
-            "//div[@id='user-tools']//a[@href='/']"
-        )
-        self.href_to_webpage.click()
-        time.sleep(2)
+        # self.driver.get('http://127.0.0.1:8000/admin/')  # added 24-05-2023
+        # self.href_guideline = self.driver.find_element(
+        #     By.XPATH,
+        #     "//div[@class ='app-datasheet module']//a[@href='/admin/datasheet/guideline/']"
+        # )
+        # self.href_guideline.click()
+        # time.sleep(2)
+        # self.input_search_admin = self.driver.find_element(
+        #     By.XPATH,
+        #     "//form[@id='changelist-search']//input[@id='searchbar']"
+        # )
+        # self.input_search_admin.send_keys(self.title_of_guideline)
+        # self.submit_search_admin = self.driver.find_element(
+        #     By.XPATH,
+        #     "//form[@id='changelist-search']//input[@type='submit']"
+        # )
+        # self.submit_search_admin.click()
+        # time.sleep(2)
+        # self.href_select_guideline = self.driver.find_element(
+        #     By.XPATH,
+        #     "//table[@id='result_list']//th[@class='field-title']//a[1]"
+        # )
+        # self.href_select_guideline.click()
+        # time.sleep(2)
+        #
+        # self.select_certified = self.driver.find_element(
+        #     By.XPATH,
+        #     "//select[@id='id_status']/option[text()='Certified']"
+        # )
+        # self.select_certified.click()
+        #
+        # self.submit_save = self.driver.find_element(
+        #     By.XPATH,
+        #     "//div[@class='submit-row']//input[@name='_save']"
+        # )
+        # self.submit_save.submit()
+        # time.sleep(2)
+        # self.href_to_webpage = self.driver.find_element(
+        #     By.XPATH,
+        #     "//div[@id='user-tools']//a[@href='/']"
+        # )
+        # self.href_to_webpage.click()
+        # time.sleep(2)
         # ---The End---
 
         self.input_search_webpage = self.driver.find_element(
@@ -306,7 +306,25 @@ class TestGuidelineMain(TestGuidelineInit):
         time.sleep(2)
 
         # --- Start a new test ---
+        self.button_edit = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//button[@type='submit' and text()='Edit']"
+        )
+        self.button_edit.click()
+        time.sleep(2)
 
+        self.select_status = self.driver.find_element(
+            By.XPATH,
+            "//select[@id='id_status']/option[text()='Certified']"
+        )
+        self.select_status.click()
+
+        self.button_save = self.driver.find_element(
+            By.XPATH,
+            "//div[@class='col-md-8']//button[@type='submit' and text()='Save']"
+        )
+        self.button_save.click()
+        time.sleep(2)
 
 
         # --- The End a new part ---
