@@ -96,8 +96,13 @@ def guide_new(request):
 
 def guideline_edit(request, pk):
     guide = get_object_or_404(Guideline, pk=pk)
+    guide_ver_increment = int(guide.version)+1
+    # print(int(guide.version)+1)
     if request.method == "POST":
-        form = GuideForm(request.POST, request.FILES, instance=guide)
+        form = GuideForm(request.POST, request.FILES, instance=guide, initial={'version': guide_ver_increment})
+        # form.fields['version'].initial = [4]
+        # form = GuideForm(request.POST, request.FILES, instance=guide, initial={'version': 2})
+        # form = GuideForm(request.POST or None, request.FILES or None, instance=guide, initial={'title': 'tetsttst'})
         if form.is_valid():
             guide = form.save(commit=False)
             guide.author = request.user
@@ -105,7 +110,8 @@ def guideline_edit(request, pk):
             guide.save()
             return redirect('guideline_detail', pk=guide.pk)
     else:
-        form = GuideForm(instance=guide)
+        # form = GuideForm(instance=guide)
+        form = GuideForm(instance=guide, initial={'version': guide_ver_increment})
 
     return render(request,
                   'datasheet/guideline_edit.html',
@@ -160,7 +166,6 @@ def guideline_share(request, pk):
 #     paginate_by = 3
 #     template_name = 'datasheet/guideline_list.html'
 #     # template_name = 'desk/datasheet/guideline_list.html'
-
 
 class GuideCommentView(CreateView):
     model = Comment

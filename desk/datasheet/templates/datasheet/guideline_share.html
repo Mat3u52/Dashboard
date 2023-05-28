@@ -3,16 +3,16 @@
 <!--{% block title %} Share the guideline{% endblock %}-->
 
 {% block content %}
-    {% if sent %}
-        <h1>The message sent</h1>
-        <p>Guideline "{{ guideline.title }}" to {{ form.cleaned_data.to }} success.</p>
-    {% else %}
-        <h1>Share the guideline "{{ guideline.title }}" by e-mail.</h1>
-        <form action="." method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit" class="btn btn-outline-success" value="Send">Send</button>
+  {% if sent %}
+    <h1>The message sent</h1>
+      <p>Guideline "{{ guideline.title }}" to {{ form.cleaned_data.to }} success.</p>
+  {% else %}
+    <h1>Share the guideline "{{ guideline.title }}" by e-mail.</h1>
+      <form action="." method="post">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-success" value="Send">Send</button>
 <!--            <input type="submit" value="Send">-->
-        </form>
-    {% endif %}
+      </form>
+  {% endif %}
 {% endblock %}

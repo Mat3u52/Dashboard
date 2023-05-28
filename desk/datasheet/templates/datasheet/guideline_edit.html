@@ -1,11 +1,26 @@
 {% extends 'datasheet/base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
-  <h2>Create a new / Update the guideline.</h2>
+<h2>Create a new or update the guideline.</h2>
+{% if user.is_authenticated and user.username == 'admin'%}
   <form method="post" class="post-form" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-success">Save</button>
+  </form>
+{% elif user.is_authenticated %}
+  <form method="post" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.title.label_tag }}</p>
+    <p>{{ form.title }}</p>
+    <p>{{ form.title.help_text }}</p>
+    <p>{{ form.version.label_tag }}</p>
+    <p>{{ form.version }}</p>
+    <p>{{ form.version.help_text }}</p>
+    <p>{{ form.text.label_tag }}</p>
+    <p>{{ form.text }}</p>
+    <p>{{ form.image.label_tag }}</p>
+    <p>{{ form.image }}</p>
     <button type="submit" class="btn btn-outline-success">Save</button>
   </form>
 {% endif %}

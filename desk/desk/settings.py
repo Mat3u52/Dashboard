@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'datasheet',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'pl-pl'
+# LANGUAGE_CODE = 'pl-pl'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Warsaw'
 
@@ -137,8 +139,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'guideline2023@gmail.com'
-#EMAIL_HOST_PASSWORD = ''
-EMAIL_HOST_PASSWORD = ''
+#EMAIL_HOST_PASSWORD = '3202enilediug'
+EMAIL_HOST_PASSWORD = 'zonhmpvfazgkpsll'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # from django.core.mail import send_mail
