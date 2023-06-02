@@ -1,7 +1,5 @@
 {% extends 'datasheet/base.html' %}
 
-<!--{% block title %} Share the guideline{% endblock %}-->
-
 {% block content %}
   {% if sent %}
     <h1>The message sent</h1>
@@ -12,7 +10,6 @@
           {{ form.as_p }}
           {% csrf_token %}
           <button type="submit" class="btn btn-outline-success" value="Send">Send</button>
-<!--            <input type="submit" value="Send">-->
       </form>
   {% endif %}
 {% endblock %}
