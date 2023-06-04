@@ -3,8 +3,12 @@ from .models import Guideline, Comment
 
 
 class GuideForm(forms.ModelForm):
-    title = forms.CharField(help_text='maximum 250 characters')
+    title = forms.CharField(help_text='maximum 250 characters', required=True)
     # version = forms.ChoiceField(help_text='your guideline version will be automatically increased')
+    # version = forms.CharField(required=True)
+    # text = forms.TextField(required=True)
+    image = forms.ImageField(required=True)
+    # status = forms.CharField(required=True)
 
     class Meta:
         model = Guideline
