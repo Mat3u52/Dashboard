@@ -10,7 +10,7 @@
     {% csrf_token %}
     {{ form.as_p }}
 <button type="submit" class="btn btn-outline-success">Login</button>
-<input type="hidden" name="next" value="{% url 'guideline_list' %}" />
+    <input type="hidden" name="next" value="{% url 'guideline_list' %}" />
 </form>
 
 {% endblock content %}
